@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ADMINISTRATIVE
+      POSTGRES_USER: USER_ADMIN
+      POSTGRES_PASSWORD: PASS_ADMIN
+    networks:
+      - app-network
+
+  app:
+    image: mvasquezr/app_administrative
+    volumes:
+      - .:/app
+      - static:/app/static
+      - media:/app/media
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=ADMINISTRATIVE
+      - DB_USER=USER_ADMIN
+      - DB_PASSWORD=PASS_ADMIN
+      - DB_HOST=db
+      - DB_PORT=5432
+      - BASE_DIR=media
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx
+    networks:
+      - app-network
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - type: volume
+        source: media
+        target: /app/media
+        volume:
+          nocopy: true
+      - type: volume
+        source: static
+        target: /app/static
+        volume:
+          nocopy: true
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  # Ruta absoluta a tu nginx.conf si es necesario
+
+  migrate:
+    command: /app/init/init.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - nginx
+    environment:
+      - DB_NAME=ADMINISTRATIVE
+      - DB_USER=USER_ADMIN
+      - DB_PASSWORD=PASS_ADMIN
+      - DB_HOST=db
+      - DB_PORT=5432
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  postgres_data:
+  static:
+  media:

@@ -1,0 +1,14 @@
+.idea/
+.vscode/
+**/__pycache__/**
+**/*.pyc
+.env
+.venv
+*.sqlite3
+
+file_reader/
+/media/*
+/logs/*.log*
+/envs/local.develop.env
+/envs/develop.env
+/static/
