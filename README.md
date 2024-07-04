@@ -1,6 +1,7 @@
 # App Administrative
 
-Este proyecto es una aplicación web construida con Django, utilizando PostgreSQL como base de datos, y Nginx como servidor web en un entorno Dockerizado.
+Este proyecto es una aplicación web construida con Django, utilizando PostgreSQL como base de datos, y Nginx como
+servidor web en un entorno Dockerizado.
 
 ## Requisitos
 
@@ -11,8 +12,8 @@ Este proyecto es una aplicación web construida con Django, utilizando PostgreSQ
 
 Sigue estos pasos para configurar y ejecutar la aplicación:
 
-### 1. Clona el repositorio
+### 1. Clona el repositorio y la imagen
 
 ```sh
-git clone https://github.com/tu-usuario/app_administrative.git
-cd app_administrative
+https://github.com/JMVasquezR/app_admistrative.git
+docker pull mvasquezr/app_administrative
