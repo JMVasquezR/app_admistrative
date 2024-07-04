@@ -52,7 +52,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  # Ruta absoluta a tu nginx.conf si es necesario
 
   migrate:
-    command: /app/init/init.sh
+    command: python manage.py migrate
     volumes:
       - .:/app
     depends_on:

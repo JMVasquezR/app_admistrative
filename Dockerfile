@@ -24,12 +24,6 @@ RUN mkdir -p /app/media
 # Recopila los archivos estáticos
 RUN python manage.py collectstatic --noinput
 
-# Ejecuta las migraciones y crea el usuario superadmin
-COPY init/init.sh /app/
-RUN chmod +x /app/init/init.sh
-
-CMD ["/app/init/init.sh"]
-
 # Exponer el puerto en el que correrá la aplicación
 EXPOSE 8000
 
